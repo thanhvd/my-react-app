@@ -10,6 +10,8 @@ class TodoApp extends Component {
     this.state = { items: [], text: '' };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleSubmit(event) {
@@ -31,6 +33,21 @@ class TodoApp extends Component {
     this.setState({ text: event.target.value });
   }
 
+  handleEdit(id) {
+    const text = prompt("Enter new text");
+    const items = this.state.items;
+    this.setState({items: items.map(
+      (el)=> el.id === id ? Object.assign({}, el, {text: text}) : el 
+    )});
+  }
+
+  handleDelete(id) {
+    const items = this.state.items.filter(item => {
+      return item.id !== id ? item : null;
+    });
+    this.setState({items: items});
+  }
+
   render() {
     return (
       <div className="TodoApp">
@@ -42,7 +59,11 @@ class TodoApp extends Component {
               handleChange={this.handleChange}
               handleSubmit={this.handleSubmit}
             />
-            <ToDoList items={this.state.items}/>
+            <ToDoList
+              items={this.state.items}
+              edit={this.handleEdit}
+              delete={this.handleDelete}
+            />
           </Col>
         </Row>
       </div>
