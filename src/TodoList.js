@@ -11,8 +11,10 @@ function TodoList(props) {
       id={item.id}
       value={item.text}
       index={index + 1}
+      finished={item.finished}
       edit={props.edit}
       delete={props.delete}
+      finish={props.finish}
     />
   );
   return (

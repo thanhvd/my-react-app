@@ -12,6 +12,7 @@ class TodoApp extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleFinish = this.handleFinish.bind(this);
   }
 
   handleSubmit(event) {
@@ -21,6 +22,7 @@ class TodoApp extends Component {
     }
     const newTask = {
       text: this.state.text,
+      finished: false,
       id: Date.now()
     }
     this.setState(prevState => ({
@@ -48,6 +50,13 @@ class TodoApp extends Component {
     this.setState({items: items});
   }
 
+  handleFinish(id) {
+    const items = this.state.items;
+    this.setState({items: items.map(
+      (el)=> el.id === id ? Object.assign({}, el, {finished: !el.finished}) : el 
+    )});
+  }
+
   render() {
     return (
       <div className="TodoApp">
@@ -63,6 +72,7 @@ class TodoApp extends Component {
               items={this.state.items}
               edit={this.handleEdit}
               delete={this.handleDelete}
+              finish={this.handleFinish}
             />
           </Col>
         </Row>

@@ -4,8 +4,8 @@ import './TodoListItem.css';
 
 function TodoListItem(props) {
   return (
-    <ListGroupItem>
-      {props.index}. {props.value}
+    <ListGroupItem onClick={() => props.finish(props.id)}>
+      <span style={{ textDecoration: props.finished ? 'line-through' : 'none' }}>{props.index}. {props.value}</span>
       <ButtonToolbar className="actionButtons">
         <ButtonGroup bsSize="xsmall">
           <Button bsStyle="info" onClick={() => props.edit(props.id)}>Edit</Button>
